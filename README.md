@@ -1,2 +1,1 @@
-# infrastructure
-This repository holds code as infrastructure for Houby Studio.
+# Houby Studio's infrastructure on OCI
