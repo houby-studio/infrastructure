@@ -17,7 +17,7 @@ variable "fingerprint" {
 
 variable "region" {
   description = "Region name"
-  default = "eu-amsterdam-1"
+  default     = "eu-amsterdam-1"
 }
 
 # Required for all resources
@@ -39,7 +39,7 @@ variable "ssh_public_key" {
 }
 
 variable "images" {
-  type = map(string)
+  type = map(map(string))
 
   default = {
     "VM.Standard.A1.Flex" = {
@@ -53,7 +53,7 @@ variable "images" {
 
 variable "arm1_name" {
   description = "Instance name"
-  default = "rohan"
+  default     = "rohan"
 }
 
 # Required for vcn
