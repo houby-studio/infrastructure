@@ -2,14 +2,14 @@
 resource "oci_core_virtual_network" "primary_vcn" {
   cidr_block     = "10.11.20.0/24"
   compartment_id = var.compartment_ocid
-  display_name   = "${vcn_prefix}-vcn"
-  dns_label      = "${vcn_prefix}vcn"
+  display_name   = "${var.vcn_prefix}-vcn"
+  dns_label      = "${var.vcn_prefix}vcn"
 }
 
 # Public subnet
 resource "oci_core_subnet" "public_subnet" {
   cidr_block        = "10.1.20.0/24"
-  display_name      = "${vcn_prefix}-public-subnet"
+  display_name      = "${var.vcn_prefix}-public-subnet"
   dns_label         = "public"
   security_list_ids = [oci_core_security_list.public_security_list.id]
   compartment_id    = var.compartment_ocid
@@ -21,7 +21,7 @@ resource "oci_core_subnet" "public_subnet" {
 # Internet gateway - for public subnet - allows ingress and egress connections
 resource "oci_core_internet_gateway" "internet_gateway" {
   compartment_id = var.compartment_ocid
-  display_name   = "${vcn_prefix}-internet-gateway"
+  display_name   = "${var.vcn_prefix}-internet-gateway"
   vcn_id         = oci_core_virtual_network.primary_vcn.id
 }
 
@@ -29,7 +29,7 @@ resource "oci_core_internet_gateway" "internet_gateway" {
 resource "oci_core_route_table" "public_route_table" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.primary_vcn.id
-  display_name   = "${vcn_prefix}-public-route-table"
+  display_name   = "${var.vcn_prefix}-public-route-table"
 
   route_rules {
     destination       = "0.0.0.0/0"
@@ -42,7 +42,7 @@ resource "oci_core_route_table" "public_route_table" {
 resource "oci_core_security_list" "public_security_list" {
   compartment_id = var.compartment_ocid
   vcn_id         = oci_core_virtual_network.primary_vcn.id
-  display_name   = "${vcn_prefix}-public_security_list"
+  display_name   = "${var.vcn_prefix}-public_security_list"
 
   # Allow full communication to internet
   egress_security_rules {
