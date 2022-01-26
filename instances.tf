@@ -57,7 +57,7 @@ resource "oci_core_instance" "arm1_instance" {
 		assign_public_ip = "true"
 		hostname_label = var.arm1_name
 		private_ip = "10.11.20.101"
-		subnet_id = oci_core_subnet.hs_vcn.id
+		subnet_id = oci_core_subnet.public_subnet.id
 	}
 
   # Instance name

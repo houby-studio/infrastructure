@@ -50,3 +50,8 @@ variable "arm1_name" {
   description = "Instance name"
   default = "rohan"
 }
+
+# Required for vcn
+variable "vcn_prefix" {
+  description = "Prefix for all VCN resources"
+}
