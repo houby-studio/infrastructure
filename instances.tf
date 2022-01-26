@@ -80,7 +80,7 @@ resource "oci_core_instance" "arm1_instance" {
   # Boot volume - size and image
 	source_details {
 		boot_volume_size_in_gbs = "50"
-		source_id = var.images[var.region]
+		source_id = var.images[self.shape][var.region]
 		source_type = "image"
 	}
 }
