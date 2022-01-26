@@ -1,3 +1,8 @@
+locals {
+  arm_shape = "VM.Standard.A1.Flex"
+  x64_shape = "VM.Standard.E2.1.Micro"
+}
+
 # Worker instance 1 - ARM
 resource "oci_core_instance" "arm1_instance" {
   # ===== Required for resource =====
@@ -6,7 +11,7 @@ resource "oci_core_instance" "arm1_instance" {
   # Compartment ID - where instance will be provisioned
   compartment_id = var.compartment_ocid
   # Shape - VM.Standard.E2.1.Micro and VM.Standard.A1.Flex are always free eligible
-  shape = "VM.Standard.A1.Flex"
+  shape = local.arm_shape
 
   # ===== Optional for resource =====
   # Agent configuration
@@ -80,7 +85,7 @@ resource "oci_core_instance" "arm1_instance" {
   # Boot volume - size and image
   source_details {
     boot_volume_size_in_gbs = "50"
-    source_id               = var.images[oci_core_instance.arm1_instance.shape][var.region]
+    source_id               = var.images[local.arm_shape][var.region]
     source_type             = "image"
   }
 }
