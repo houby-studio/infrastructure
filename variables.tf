@@ -42,10 +42,10 @@ variable "images" {
   type = map(string)
 
   default = {
-    VM.Standard.A1.Flex = {
+    "VM.Standard.A1.Flex" = {
       eu-amsterdam-1 = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaadixwulpfjs4yqwhnzjorjmxaalrlwmma35nntqdkvmd6zu76fuaq"
     }
-    VM.Standard.E2.1.Micro = {
+    "VM.Standard.E2.1.Micro" = {
       eu-amsterdam-1 = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaa7sqau7d2qoi473e2r7xp5bsxfuqxlejmepd6njt5xpyzkg2puvuq"
     }
   }
