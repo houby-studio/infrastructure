@@ -51,12 +51,29 @@ variable "images" {
   }
 }
 
-variable "arm1_name" {
-  description = "Instance name"
-  default     = "rohan"
+variable "instance_names" {
+  type        = list(string)
+  description = "Instance names"
+
+  default = [
+    "minastirith",
+    "minasmorgul",
+    "rohan",
+    "gondor"
+  ]
 }
 
 # Required for vcn
 variable "vcn_prefix" {
   description = "Prefix for all VCN resources"
+}
+
+variable "vcn_cidr" {
+  description = "Prefix for all VCN resources"
+  default     = "10.11.0.0/16"
+}
+
+variable "public_subnet_cidr" {
+  description = "Prefix for all VCN resources"
+  default     = "10.11.20.0/24"
 }

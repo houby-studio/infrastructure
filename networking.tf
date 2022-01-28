@@ -1,6 +1,6 @@
 # Virtual network
 resource "oci_core_virtual_network" "primary_vcn" {
-  cidr_block     = "10.11.20.0/24"
+  cidr_block     = var.vcn_cidr
   compartment_id = var.compartment_ocid
   display_name   = "${var.vcn_prefix}-vcn"
   dns_label      = "${var.vcn_prefix}vcn"
@@ -8,7 +8,7 @@ resource "oci_core_virtual_network" "primary_vcn" {
 
 # Public subnet
 resource "oci_core_subnet" "public_subnet" {
-  cidr_block        = "10.11.20.0/24"
+  cidr_block        = var.public_subnet_cidr
   display_name      = "${var.vcn_prefix}-public-subnet"
   dns_label         = "public"
   security_list_ids = [oci_core_security_list.public_security_list.id]
