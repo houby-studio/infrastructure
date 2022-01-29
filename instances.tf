@@ -1,21 +1,21 @@
 # This configuration uses all available instances in the always free tier
 
 locals {
-  x64_shape = {
-    "name" = "VM.Standard.E2.1.Micro"
+  server_configuration = {
+    "shape" = "VM.Standard.E2.1.Micro"
     "cpu"  = "1"
     "ram"  = "1"
   }
-  arm_shape = {
-    "name" = "VM.Standard.A1.Flex"
+  client_configuration = {
+    "shape" = "VM.Standard.A1.Flex"
     "cpu"  = "2"
     "ram"  = "12"
   }
-  instance_shapes = {
-    "0" = local.x64_shape
-    "1" = local.x64_shape
-    "2" = local.arm_shape
-    "3" = local.arm_shape
+  instances = {
+    "0" = local.server_configuration
+    "1" = local.server_configuration
+    "2" = local.client_configuration
+    "3" = local.client_configuration
   }
 }
 
@@ -29,7 +29,7 @@ resource "oci_core_instance" "instance" {
   # Compartment ID - where instance will be provisioned
   compartment_id = var.compartment_ocid
   # Shape - VM.Standard.E2.1.Micro and VM.Standard.A1.Flex are always free eligible
-  shape = lookup(local.instance_shapes, count.index).name
+  shape = lookup(local.instances, count.index).shape
 
   # ===== Optional for resource =====
   # Agent configuration
@@ -96,13 +96,13 @@ resource "oci_core_instance" "instance" {
 
   # Instance shape - CPU and RAM
   shape_config {
-    memory_in_gbs = lookup(local.instance_shapes, count.index).ram
-    ocpus         = lookup(local.instance_shapes, count.index).cpu
+    memory_in_gbs = lookup(local.instances, count.index).ram
+    ocpus         = lookup(local.instances, count.index).cpu
   }
   # Boot volume - size and image
   source_details {
     boot_volume_size_in_gbs = "50"
-    source_id               = var.images[lookup(local.instance_shapes, count.index).name][var.region]
+    source_id               = var.images[lookup(local.instances, count.index).shape][var.region]
     source_type             = "image"
   }
 }
